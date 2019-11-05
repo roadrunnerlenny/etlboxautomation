@@ -1,0 +1,28 @@
+{
+    "Variables": [
+        {
+            "Name": "MyServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        },
+        {
+            "Name": "MyColumns",
+            "Type": "List<TableColumn>",
+            "Value": [
+                "new TableColumn('col1', 'INT')",
+                "new TableColumn('col2', 'NVARCHAR(50)', allowNulls: false)"
+            ]
+        }
+    ],
+    "Package": {
+        "Tasks": [
+            {
+                "Type": "CreateTableTask",
+                "ConnectionManager": "MyServer",
+                "TableName": "[dbo].[TestTable]",
+                "TableDefinition": "MyColumns",
+                "Execute": "CreateOrAlter"
+            }
+        ]
+    }
+}

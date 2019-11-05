@@ -1,0 +1,31 @@
+{
+    "Variables": [
+        {
+            "Name": "SourceServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        },
+        {
+            "Name": "DestinationServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        }
+    ],
+    "Package": {
+        "Tasks": [
+            {
+                "Type": "DBSource",
+                "Id": "source",
+                "ConnectionManager": "SourceServer",
+                "TableName": "[dbo].[SourceTest]",
+                "LinkTo": [ "dest" ]
+            },
+            {
+                "Type": "DBDestination",
+                "Id": "dest",
+                "ConnectionManager": "DestinationServer",
+                "TableName": "[dbo].[DestinationTest]"
+            }
+        ]
+    }
+}

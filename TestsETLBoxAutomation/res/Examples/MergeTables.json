@@ -1,0 +1,40 @@
+{
+    "Variables": [
+        {
+            "Name": "SourceServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        },
+        {
+            "Name": "DestinationServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        }
+    ],
+    "Package": {
+        "Name": "MergeTables",
+        "RunAt": "0 0 6 1/1 * ? ",
+        "Tasks": [
+            {
+                "Type": "DBSource",
+                "Id": "source",
+                "ConnectionManager": "SourceServer",
+                "TableName": "[dbo].[SourceTest]",
+                "LinkTo": [ "dataDest" ]
+            },
+            {
+                "Type": "DBMerge",
+                "Id": "dataDest",
+                "ConnectionManager": "DestinationServer",
+                "TableName": "[dbo].[DataDestination]",
+                "LinkTo": ["headerDest"]
+            },
+            {
+                "Type": "DBDestination",
+                "Id": "headerDest",
+                "ConnectionManager": "DestinationServer",
+                "TableName": "[dbo].[HeaderDestination]"
+            }
+        ]
+    }
+}

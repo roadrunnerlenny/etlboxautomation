@@ -1,0 +1,42 @@
+{
+    "Datatypes": [
+        {
+            "Name": "MySimpleRow",
+            "Properties": [
+                {   "Name": "Col1", "Type": "int" },
+                {   "Name": "Col2", "Type": "string" }
+            ]
+        }
+    ],
+    "Variables": [
+        {
+            "Name": "SourceServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        },
+        {
+            "Name": "DestinationServer",
+            "Type": "SqlConnectionManager",
+            "Value": "Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox_ControlFlow"
+        }
+    ],
+    "Package": {
+        "Tasks": [
+            {
+                "Component": "DBSource",
+                "Datatype":  "MySimpleRow",
+                "Id": "source",
+                "ConnectionManager": "SourceServer",
+                "TableName": "[dbo].[SourceTest]",
+                "LinkTo": [ "dest" ]
+            },
+            {
+                "Component": "DBDestination",
+                "Datatypes": "MySimpleRow",
+                "Id": "dest",
+                "ConnectionManager": "DestinationServer",
+                "TableName": "[dbo].[DestinationTest]"
+            }
+        ]
+    }
+}
